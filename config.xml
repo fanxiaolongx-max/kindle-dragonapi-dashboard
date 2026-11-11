@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension><information><name>DragonAPI Dashboard</name><version>1.0</version><author>DragonAPI</author></information><menus><menu type="json" dynamic="true">menu.json</menu></menus></extension>

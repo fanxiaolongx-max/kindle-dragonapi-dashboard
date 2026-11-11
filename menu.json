@@ -1,0 +1,1 @@
+{"items":[{"name":"DragonAPI Dashboard","priority":10,"items":[{"name":"Start dashboard","action":"./bin/dashboard.sh","params":"start","exitmenu":true},{"name":"Stop dashboard","action":"./bin/dashboard.sh","params":"stop","exitmenu":false},{"name":"Refresh once","action":"./bin/dashboard.sh","params":"once","exitmenu":true}]}]}
