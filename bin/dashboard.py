@@ -71,10 +71,10 @@ def agent_table():
                 rows.append((label, cell('5h'), cell('weekly')))
             balance = item.get('creditsBalance')
             if isinstance(balance, (int, float)):
-                rows.append(('  Credits', '%.2f' % balance, ''))
+                rows.append(('  CREDITS', '%s' % format(balance, ',.2f'), ''))
             extra = item.get('extraUsage') or {}
             if extra.get('enabled') and isinstance(extra.get('used'), (int, float)) and isinstance(extra.get('limit'), (int, float)):
-                rows.append(('  Spend ' + extra.get('currency', 'USD'), '%.2f / %.2f' % (extra['used'], extra['limit']), ''))
+                rows.append(('  EXTRA ' + extra.get('currency', 'USD'), '%s / %s' % (format(extra['used'], ',.2f'), format(extra['limit'], ',.2f')), ''))
     except (OSError, ValueError, KeyError, TypeError):
         rows.append(('Waiting for Mac sync', '--', '--'))
     return rows, timestamp
@@ -162,19 +162,19 @@ def render_dashboard(content, width, height):
     text(640, 102, '5 HOURS', 25, True)
     text(1115, 102, 'WEEKLY', 25, True)
     line(60, 145, 1588, 145, 3)
-    row_height = min(145, int(840 / max(1, len(entries))))
+    row_height = min(115, int(620 / max(1, len(entries))))
     def quota(x, y, value):
         match = re.match(r'^\s*([\d.]+%)\s+(.*)$', value)
         if match:
-            text(x, y + 2, match.group(1), 70, True)
-            text(x, y + 91, 'RESET  ' + match.group(2), 23)
+            text(x, y + 2, match.group(1), 58, True)
+            text(x, y + 76, 'RESET  ' + match.group(2), 21)
         else:
             text(x, y + 14, value, 38, True)
     for i, (label, five, weekly, detail) in enumerate(entries):
         y = 157 + i * row_height
         text(60, y + 16, label, 31, True)
         if detail:
-            text(60, y + 66, detail, 23)
+            text(60, y + 66, detail, 25, True)
         quota(640, y, five)
         quota(1115, y, weekly)
         line(60, y + row_height - 5, 1588, y + row_height - 5, 1)
@@ -184,6 +184,50 @@ def render_dashboard(content, width, height):
     footer = [item.strip('| ').strip() for item in footer[start:] if item.startswith('|')]
     for i, item in enumerate(footer):
         text(60, footer_y + i * 35, item, 23, i == 0)
+    # Give the process list the full width below the DragonAPI summary.
+    pm_y = footer_y + len(footer) * 35 + 12
+    line(60, pm_y, 1588, pm_y, 2)
+    try:
+        with open(os.path.join(ROOT, 'pm2-status.json'), encoding='utf-8') as f:
+            host = json.load(f)
+        if not isinstance(host, dict) or not isinstance(host.get('processes'), list):
+            raise ValueError('Invalid status')
+    except (OSError, ValueError, TypeError):
+        host = {}
+    processes = host.get('processes', [])
+    updated = host.get('timestamp')
+    stale = not isinstance(updated, (int, float)) or time.time() - updated / 1000 > 600
+    online = sum(1 for proc in processes if proc.get('status') == 'online')
+    if host.get('status') == 'unavailable':
+        status = 'UNAVAILABLE: ' + str(host.get('reason', 'unknown')).replace('_', ' ')
+    elif not host:
+        status = 'NO DATA'
+    elif not processes:
+        status = 'NO PROCESSES'
+    else:
+        status = '%d/%d ONLINE' % (online, len(processes))
+    if stale and host:
+        status += ' / STALE'
+    text(60, pm_y + 8, 'MAC PM2   ' + status, 25, True)
+    # Two columns use the full width while keeping all current entries visible.
+    max_rows = max(1, (1236 - pm_y - 55) // 49)
+    visible_rows = max(1, min(max_rows, (len(processes) + 1) // 2))
+    per_page = visible_rows * 2
+    page_count = max(1, (len(processes) + per_page - 1) // per_page)
+    page = int(time.time() // 60) % page_count
+    if page_count > 1:
+        text(1515, pm_y + 10, '%d/%d' % (page + 1, page_count), 19)
+    for i, proc in enumerate(processes[page * per_page:(page + 1) * per_page]):
+        x = 60 + (i // visible_rows) * 770
+        y = pm_y + 42 + (i % visible_rows) * 49
+        cpu = proc.get('cpuPercent')
+        memory = proc.get('memoryBytes')
+        cpu_text = '%.1f%%' % cpu if isinstance(cpu, (int, float)) else '--'
+        mem_text = '%.0fM' % (memory / 1048576) if isinstance(memory, (int, float)) else '--'
+        name = str(proc.get('name', '?'))[:30]
+        proc_status = str(proc.get('status', '?'))
+        text(x, y, name, 22, True)
+        text(x + 360, y, '%s  %s  %s  R:%s' % (proc_status, cpu_text, mem_text, proc.get('restarts', '--')), 20, proc_status != 'online')
     path = '/tmp/dragonapi-dashboard.png'
     image.save(path)
     return path

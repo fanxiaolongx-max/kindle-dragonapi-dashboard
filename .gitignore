@@ -2,3 +2,5 @@ config.json
 *.log
 *.pid
 __pycache__/
+pm2-status*.json
+debian-pm2-status.json

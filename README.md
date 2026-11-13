@@ -31,3 +31,13 @@ sh -n bin/dashboard.sh
 python3 -m py_compile bin/dashboard.py
 python3 -c 'import json,xml.etree.ElementTree as E; json.load(open("menu.json")); json.load(open("config.example.json")); E.parse("config.xml")'
 ```
+
+## PM2 状态
+
+看板读取 Kindle 扩展目录中的 `pm2-status.json`，展示 Mac 的进程状态、CPU、内存和重启次数。采集脚本通过 SSH 原子写入状态文件，不传输 PM2 环境变量：
+
+```sh
+python3 scripts/collect_pm2.py --host mac --kindle root@kindle
+```
+
+`--pm2` 可指定 PM2 路径。文件的 `timestamp` 使用毫秒级 Unix 时间戳，进程字段包括 `name`、`status`、`cpuPercent`、`memoryBytes` 和 `restarts`。采集脚本也支持 `--host debian`，将结果写到单独的 `debian-pm2-status.json`；当前看板不显示 Debian 数据。超过 10 分钟未更新会标记 STALE；进程超出屏幕容量时自动轮换页面。
