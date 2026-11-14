@@ -69,6 +69,436 @@
       "word": "Agent",
       "pronunciation": "/ˈeɪdʒənt/",
       "meaning": "智能体：能使用工具完成任务的系统"
+    },
+    {
+      "word": "Training",
+      "pronunciation": "/ˈtreɪnɪŋ/",
+      "meaning": "训练：用数据优化模型参数"
+    },
+    {
+      "word": "Parameter",
+      "pronunciation": "/pəˈræmɪtər/",
+      "meaning": "参数：模型学习到的数值"
+    },
+    {
+      "word": "Weights",
+      "pronunciation": "/weɪts/",
+      "meaning": "权重：控制模型计算的参数"
+    },
+    {
+      "word": "Bias",
+      "pronunciation": "/ˈbaɪəs/",
+      "meaning": "偏置：模型或数据中的系统性偏差"
+    },
+    {
+      "word": "Epoch",
+      "pronunciation": "/ˈepək/",
+      "meaning": "轮次：完整遍历一次训练数据"
+    },
+    {
+      "word": "Batch",
+      "pronunciation": "/bætʃ/",
+      "meaning": "批次：一次处理的一组样本"
+    },
+    {
+      "word": "Gradient",
+      "pronunciation": "/ˈɡreɪdiənt/",
+      "meaning": "梯度：指示参数调整方向"
+    },
+    {
+      "word": "Optimizer",
+      "pronunciation": "/ˈɑːptɪmaɪzər/",
+      "meaning": "优化器：依据梯度更新参数"
+    },
+    {
+      "word": "Loss",
+      "pronunciation": "/lɔːs/",
+      "meaning": "损失：衡量模型预测的误差"
+    },
+    {
+      "word": "Backpropagation",
+      "pronunciation": "/ˌbækprɑːpəˈɡeɪʃn/",
+      "meaning": "反向传播：计算参数的梯度"
+    },
+    {
+      "word": "Transformer",
+      "pronunciation": "/trænsˈfɔːrmər/",
+      "meaning": "一种以注意力机制为核心的架构"
+    },
+    {
+      "word": "Attention",
+      "pronunciation": "/əˈtenʃn/",
+      "meaning": "注意力：计算信息之间的关联"
+    },
+    {
+      "word": "Decoder",
+      "pronunciation": "/diːˈkoʊdər/",
+      "meaning": "解码器：用于逐步生成输出"
+    },
+    {
+      "word": "Encoder",
+      "pronunciation": "/ɪnˈkoʊdər/",
+      "meaning": "编码器：把输入转换为内部表示"
+    },
+    {
+      "word": "Neural network",
+      "pronunciation": "/ˈnʊrəl ˈnetwɜːrk/",
+      "meaning": "神经网络：由多层计算单元组成"
+    },
+    {
+      "word": "Deep learning",
+      "pronunciation": "/diːp ˈlɜːrnɪŋ/",
+      "meaning": "深度学习：使用多层神经网络学习"
+    },
+    {
+      "word": "Machine learning",
+      "pronunciation": "/məˈʃiːn ˈlɜːrnɪŋ/",
+      "meaning": "机器学习：从数据中学习规律"
+    },
+    {
+      "word": "Supervised learning",
+      "pronunciation": "/ˈsuːpərvaɪzd ˈlɜːrnɪŋ/",
+      "meaning": "监督学习：利用标注样本训练"
+    },
+    {
+      "word": "Unsupervised learning",
+      "pronunciation": "/ʌnˈsuːpərvaɪzd ˈlɜːrnɪŋ/",
+      "meaning": "无监督学习：从未标注数据发现结构"
+    },
+    {
+      "word": "Reinforcement learning",
+      "pronunciation": "/ˌriːɪnˈfɔːrsmənt ˈlɜːrnɪŋ/",
+      "meaning": "强化学习：通过奖励信号学习策略"
+    },
+    {
+      "word": "Reward",
+      "pronunciation": "/rɪˈwɔːrd/",
+      "meaning": "奖励：评价行为结果的反馈信号"
+    },
+    {
+      "word": "Policy",
+      "pronunciation": "/ˈpɑːləsi/",
+      "meaning": "策略：根据状态选择行动的方法"
+    },
+    {
+      "word": "Alignment",
+      "pronunciation": "/əˈlaɪnmənt/",
+      "meaning": "对齐：使模型行为符合目标"
+    },
+    {
+      "word": "Pretraining",
+      "pronunciation": "/ˌpriːˈtreɪnɪŋ/",
+      "meaning": "预训练：在大规模数据上学习通用能力"
+    },
+    {
+      "word": "Tokenization",
+      "pronunciation": "/ˌtoʊkənɪˈzeɪʃn/",
+      "meaning": "分词：将输入拆分为模型词元"
+    },
+    {
+      "word": "Tokenizer",
+      "pronunciation": "/ˈtoʊkənaɪzər/",
+      "meaning": "分词器：负责词元编码与解码"
+    },
+    {
+      "word": "Context window",
+      "pronunciation": "/ˈkɑːntekst ˈwɪndoʊ/",
+      "meaning": "上下文窗口：单次可处理的词元范围"
+    },
+    {
+      "word": "System prompt",
+      "pronunciation": "/ˈsɪstəm prɑːmpt/",
+      "meaning": "系统提示：定义模型的高层指令"
+    },
+    {
+      "word": "Few-shot",
+      "pronunciation": "/fjuː ʃɑːt/",
+      "meaning": "少样本：通过少量示例引导任务"
+    },
+    {
+      "word": "Zero-shot",
+      "pronunciation": "/ˈzɪroʊ ʃɑːt/",
+      "meaning": "零样本：不提供任务示例直接处理"
+    },
+    {
+      "word": "Reasoning",
+      "pronunciation": "/ˈriːzənɪŋ/",
+      "meaning": "推理：根据已知信息逐步得出结论"
+    },
+    {
+      "word": "RAG",
+      "pronunciation": "/ræɡ/",
+      "meaning": "检索增强生成：先检索资料再生成"
+    },
+    {
+      "word": "Vector",
+      "pronunciation": "/ˈvektər/",
+      "meaning": "向量：由一组数值构成的表示"
+    },
+    {
+      "word": "Vector database",
+      "pronunciation": "/ˈvektər ˈdeɪtəbeɪs/",
+      "meaning": "向量数据库：存储并检索向量"
+    },
+    {
+      "word": "Similarity",
+      "pronunciation": "/ˌsɪməˈlærəti/",
+      "meaning": "相似度：衡量两个表示的接近程度"
+    },
+    {
+      "word": "Cosine similarity",
+      "pronunciation": "/ˈkoʊsaɪn ˌsɪməˈlærəti/",
+      "meaning": "余弦相似度：比较向量方向"
+    },
+    {
+      "word": "Chunk",
+      "pronunciation": "/tʃʌŋk/",
+      "meaning": "文本块：切分后用于检索的片段"
+    },
+    {
+      "word": "Reranking",
+      "pronunciation": "/ˌriːˈræŋkɪŋ/",
+      "meaning": "重排序：对候选检索结果再次排序"
+    },
+    {
+      "word": "Grounding",
+      "pronunciation": "/ˈɡraʊndɪŋ/",
+      "meaning": "依据绑定：让回答基于可靠资料"
+    },
+    {
+      "word": "Citation",
+      "pronunciation": "/saɪˈteɪʃn/",
+      "meaning": "引用：标明回答所依据的来源"
+    },
+    {
+      "word": "Tool calling",
+      "pronunciation": "/tuːl ˈkɔːlɪŋ/",
+      "meaning": "工具调用：请求外部工具执行操作"
+    },
+    {
+      "word": "Function calling",
+      "pronunciation": "/ˈfʌŋkʃn ˈkɔːlɪŋ/",
+      "meaning": "函数调用：按结构化参数请求函数"
+    },
+    {
+      "word": "Workflow",
+      "pronunciation": "/ˈwɜːrkfloʊ/",
+      "meaning": "工作流：完成任务的一系列步骤"
+    },
+    {
+      "word": "Orchestration",
+      "pronunciation": "/ˌɔːrkɪˈstreɪʃn/",
+      "meaning": "编排：协调模型、工具与任务"
+    },
+    {
+      "word": "Temperature",
+      "pronunciation": "/ˈtemprətʃər/",
+      "meaning": "温度：控制生成采样的随机程度"
+    },
+    {
+      "word": "Sampling",
+      "pronunciation": "/ˈsæmplɪŋ/",
+      "meaning": "采样：按概率选择下一个词元"
+    },
+    {
+      "word": "Top-p",
+      "pronunciation": "/tɑːp piː/",
+      "meaning": "核采样：限制候选词元的累计概率"
+    },
+    {
+      "word": "Top-k",
+      "pronunciation": "/tɑːp keɪ/",
+      "meaning": "前K采样：仅从前K个候选中选择"
+    },
+    {
+      "word": "Probability",
+      "pronunciation": "/ˌprɑːbəˈbɪləti/",
+      "meaning": "概率：事件发生的可能性"
+    },
+    {
+      "word": "Logit",
+      "pronunciation": "/ˈloʊdʒɪt/",
+      "meaning": "未归一化分数：用于计算词元概率"
+    },
+    {
+      "word": "Structured output",
+      "pronunciation": "/ˈstrʌktʃərd ˈaʊtpʊt/",
+      "meaning": "结构化输出：遵循预定格式的结果"
+    },
+    {
+      "word": "Schema",
+      "pronunciation": "/ˈskiːmə/",
+      "meaning": "模式：定义数据的字段与结构"
+    },
+    {
+      "word": "JSON",
+      "pronunciation": "/ˈdʒeɪsən/",
+      "meaning": "一种常用于交换结构化数据的格式"
+    },
+    {
+      "word": "API",
+      "pronunciation": "/ˌeɪ piː ˈaɪ/",
+      "meaning": "应用接口：让程序彼此通信"
+    },
+    {
+      "word": "Endpoint",
+      "pronunciation": "/ˈendpɔɪnt/",
+      "meaning": "接口地址：服务接收请求的位置"
+    },
+    {
+      "word": "Streaming",
+      "pronunciation": "/ˈstriːmɪŋ/",
+      "meaning": "流式输出：结果生成时逐步返回"
+    },
+    {
+      "word": "Throughput",
+      "pronunciation": "/ˈθruːpʊt/",
+      "meaning": "吞吐量：单位时间处理的工作量"
+    },
+    {
+      "word": "Rate limit",
+      "pronunciation": "/reɪt ˈlɪmɪt/",
+      "meaning": "速率限制：控制单位时间请求数量"
+    },
+    {
+      "word": "Retry",
+      "pronunciation": "/ˌriːˈtraɪ/",
+      "meaning": "重试：失败后再次发起请求"
+    },
+    {
+      "word": "Backoff",
+      "pronunciation": "/ˈbækɔːf/",
+      "meaning": "退避：逐步延长重试间隔"
+    },
+    {
+      "word": "Cache",
+      "pronunciation": "/kæʃ/",
+      "meaning": "缓存：保存结果以便后续复用"
+    },
+    {
+      "word": "Prompt injection",
+      "pronunciation": "/prɑːmpt ɪnˈdʒekʃn/",
+      "meaning": "提示注入：试图通过输入改变指令"
+    },
+    {
+      "word": "Guardrail",
+      "pronunciation": "/ˈɡɑːrdreɪl/",
+      "meaning": "防护措施：限制不安全的输入或输出"
+    },
+    {
+      "word": "Validation",
+      "pronunciation": "/ˌvælɪˈdeɪʃn/",
+      "meaning": "校验：检查数据是否符合要求"
+    },
+    {
+      "word": "Evaluation",
+      "pronunciation": "/ɪˌvæljuˈeɪʃn/",
+      "meaning": "评估：用指标衡量模型表现"
+    },
+    {
+      "word": "Test set",
+      "pronunciation": "/test set/",
+      "meaning": "测试集：用于最终评估的数据"
+    },
+    {
+      "word": "Training set",
+      "pronunciation": "/ˈtreɪnɪŋ set/",
+      "meaning": "训练集：用于调整模型参数的数据"
+    },
+    {
+      "word": "Overfitting",
+      "pronunciation": "/ˌoʊvərˈfɪtɪŋ/",
+      "meaning": "过拟合：训练表现好但泛化较差"
+    },
+    {
+      "word": "Generalization",
+      "pronunciation": "/ˌdʒenrələˈzeɪʃn/",
+      "meaning": "泛化：应对未见样本的能力"
+    },
+    {
+      "word": "Precision",
+      "pronunciation": "/prɪˈsɪʒn/",
+      "meaning": "精确率：预测为正的结果中正确的比例"
+    },
+    {
+      "word": "Recall",
+      "pronunciation": "/rɪˈkɔːl/",
+      "meaning": "召回率：真实正例中被找出的比例"
+    },
+    {
+      "word": "Classifier",
+      "pronunciation": "/ˈklæsɪfaɪər/",
+      "meaning": "分类器：为输入预测类别"
+    },
+    {
+      "word": "Regression",
+      "pronunciation": "/rɪˈɡreʃn/",
+      "meaning": "回归：预测连续数值的任务"
+    },
+    {
+      "word": "Clustering",
+      "pronunciation": "/ˈklʌstərɪŋ/",
+      "meaning": "聚类：根据相似性对数据分组"
+    },
+    {
+      "word": "Anomaly",
+      "pronunciation": "/əˈnɑːməli/",
+      "meaning": "异常：明显偏离常见模式的数据"
+    },
+    {
+      "word": "Feature",
+      "pronunciation": "/ˈfiːtʃər/",
+      "meaning": "特征：用于描述样本的属性"
+    },
+    {
+      "word": "Label",
+      "pronunciation": "/ˈleɪbl/",
+      "meaning": "标签：标注样本的目标值或类别"
+    },
+    {
+      "word": "Quantization",
+      "pronunciation": "/ˌkwɑːntəˈzeɪʃn/",
+      "meaning": "量化：用较低精度表示模型数值"
+    },
+    {
+      "word": "Distillation",
+      "pronunciation": "/ˌdɪstəˈleɪʃn/",
+      "meaning": "蒸馏：让较小模型学习较大模型"
+    },
+    {
+      "word": "Fine-tune",
+      "pronunciation": "/ˌfaɪn ˈtuːn/",
+      "meaning": "微调：针对特定任务继续训练"
+    },
+    {
+      "word": "Checkpoint",
+      "pronunciation": "/ˈtʃekpɔɪnt/",
+      "meaning": "检查点：保存的模型训练状态"
+    },
+    {
+      "word": "GPU",
+      "pronunciation": "/ˌdʒiː piː ˈjuː/",
+      "meaning": "图形处理器：常用于并行计算"
+    },
+    {
+      "word": "Batching",
+      "pronunciation": "/ˈbætʃɪŋ/",
+      "meaning": "批处理：合并多个请求共同处理"
+    },
+    {
+      "word": "Privacy",
+      "pronunciation": "/ˈpraɪvəsi/",
+      "meaning": "隐私：保护个人或敏感信息"
+    },
+    {
+      "word": "Deployment",
+      "pronunciation": "/dɪˈplɔɪmənt/",
+      "meaning": "部署：让模型服务实际请求"
+    },
+    {
+      "word": "Monitoring",
+      "pronunciation": "/ˈmɑːnɪtərɪŋ/",
+      "meaning": "监控：持续观察系统状态与表现"
     }
   ],
   "egyptian": [
@@ -155,22 +585,624 @@
       "pronunciation": "/ˈħelw/",
       "meaning": "好；漂亮",
       "chinese": "希勒乌"
+    },
+    {
+      "word": "أهلا",
+      "pronunciation": "/ˈʔæhlæn/",
+      "meaning": "你好；欢迎",
+      "chinese": "阿赫兰"
+    },
+    {
+      "word": "سلام",
+      "pronunciation": "/sæˈlæːm/",
+      "meaning": "再见；平安",
+      "chinese": "萨拉姆"
+    },
+    {
+      "word": "صباح",
+      "pronunciation": "/sˤɑˈbɑːħ/",
+      "meaning": "早晨",
+      "chinese": "萨巴赫"
+    },
+    {
+      "word": "مساء",
+      "pronunciation": "/mæˈsæːʔ/",
+      "meaning": "晚上",
+      "chinese": "马萨"
+    },
+    {
+      "word": "نور",
+      "pronunciation": "/nuːɾ/",
+      "meaning": "光；光亮",
+      "chinese": "努尔"
+    },
+    {
+      "word": "أيوه",
+      "pronunciation": "/ˈʔæjwɑ/",
+      "meaning": "是；对",
+      "chinese": "艾哟瓦"
+    },
+    {
+      "word": "لا",
+      "pronunciation": "/læʔ/",
+      "meaning": "不",
+      "chinese": "拉"
+    },
+    {
+      "word": "آه",
+      "pronunciation": "/ʔɑːh/",
+      "meaning": "是；嗯",
+      "chinese": "啊"
+    },
+    {
+      "word": "ممكن",
+      "pronunciation": "/ˈmomken/",
+      "meaning": "可以；可能",
+      "chinese": "蒙肯"
+    },
+    {
+      "word": "طيب",
+      "pronunciation": "/ˈtˤɑjːeb/",
+      "meaning": "好吧；那么",
+      "chinese": "塔耶布"
+    },
+    {
+      "word": "خلاص",
+      "pronunciation": "/xɑˈlɑːsˤ/",
+      "meaning": "好了；结束了",
+      "chinese": "哈拉斯"
+    },
+    {
+      "word": "كفاية",
+      "pronunciation": "/keˈfæːjɑ/",
+      "meaning": "够了",
+      "chinese": "克法亚"
+    },
+    {
+      "word": "شوية",
+      "pronunciation": "/ʃoˈwæjːɑ/",
+      "meaning": "一点；稍等一下",
+      "chinese": "舒维亚"
+    },
+    {
+      "word": "كتير",
+      "pronunciation": "/keˈtiːɾ/",
+      "meaning": "很多",
+      "chinese": "克蒂尔"
+    },
+    {
+      "word": "قليل",
+      "pronunciation": "/ʔoˈlæjːel/",
+      "meaning": "少；一点点",
+      "chinese": "奥莱耶勒"
+    },
+    {
+      "word": "ليه",
+      "pronunciation": "/leːh/",
+      "meaning": "为什么？",
+      "chinese": "莱赫"
+    },
+    {
+      "word": "إيه",
+      "pronunciation": "/ʔeːh/",
+      "meaning": "什么？",
+      "chinese": "艾赫"
+    },
+    {
+      "word": "مين",
+      "pronunciation": "/miːn/",
+      "meaning": "谁？",
+      "chinese": "明"
+    },
+    {
+      "word": "إمتى",
+      "pronunciation": "/ˈʔemtæ/",
+      "meaning": "什么时候？",
+      "chinese": "埃姆塔"
+    },
+    {
+      "word": "إزاي",
+      "pronunciation": "/ʔezˈzæj/",
+      "meaning": "怎么；如何？",
+      "chinese": "埃扎伊"
+    },
+    {
+      "word": "هنا",
+      "pronunciation": "/ˈhenɑ/",
+      "meaning": "这里",
+      "chinese": "赫纳"
+    },
+    {
+      "word": "هناك",
+      "pronunciation": "/heˈnɑːk/",
+      "meaning": "那里",
+      "chinese": "赫纳克"
+    },
+    {
+      "word": "فوق",
+      "pronunciation": "/foːʔ/",
+      "meaning": "上面",
+      "chinese": "福"
+    },
+    {
+      "word": "تحت",
+      "pronunciation": "/tæħt/",
+      "meaning": "下面",
+      "chinese": "塔赫特"
+    },
+    {
+      "word": "يمين",
+      "pronunciation": "/jeˈmiːn/",
+      "meaning": "右边",
+      "chinese": "亚明"
+    },
+    {
+      "word": "شمال",
+      "pronunciation": "/ʃeˈmæːl/",
+      "meaning": "左边",
+      "chinese": "谢马勒"
+    },
+    {
+      "word": "قدام",
+      "pronunciation": "/ʔodˈdæːm/",
+      "meaning": "前面",
+      "chinese": "奥达姆"
+    },
+    {
+      "word": "ورا",
+      "pronunciation": "/ˈwɑɾɑ/",
+      "meaning": "后面",
+      "chinese": "瓦拉"
+    },
+    {
+      "word": "قريب",
+      "pronunciation": "/ʔoˈɾɑjːeb/",
+      "meaning": "近",
+      "chinese": "奥拉耶布"
+    },
+    {
+      "word": "بعيد",
+      "pronunciation": "/beˈʕiːd/",
+      "meaning": "远",
+      "chinese": "比伊德"
+    },
+    {
+      "word": "كبير",
+      "pronunciation": "/keˈbiːɾ/",
+      "meaning": "大的",
+      "chinese": "克比尔"
+    },
+    {
+      "word": "صغير",
+      "pronunciation": "/sˤoˈɣɑjːɑɾ/",
+      "meaning": "小的",
+      "chinese": "索盖亚尔"
+    },
+    {
+      "word": "كويس",
+      "pronunciation": "/koˈwæjːes/",
+      "meaning": "好的；不错",
+      "chinese": "科维耶斯"
+    },
+    {
+      "word": "وحش",
+      "pronunciation": "/ˈweħeʃ/",
+      "meaning": "坏的；不好",
+      "chinese": "威赫什"
+    },
+    {
+      "word": "سهل",
+      "pronunciation": "/sæhl/",
+      "meaning": "容易的",
+      "chinese": "萨赫勒"
+    },
+    {
+      "word": "صعب",
+      "pronunciation": "/sˤɑʕb/",
+      "meaning": "困难的",
+      "chinese": "萨阿布"
+    },
+    {
+      "word": "سريع",
+      "pronunciation": "/sæˈɾiːʕ/",
+      "meaning": "快的",
+      "chinese": "萨里阿"
+    },
+    {
+      "word": "بطيء",
+      "pronunciation": "/bɑˈtˤiːʔ/",
+      "meaning": "慢的",
+      "chinese": "巴蒂"
+    },
+    {
+      "word": "جديد",
+      "pronunciation": "/ɡeˈdiːd/",
+      "meaning": "新的",
+      "chinese": "格迪德"
+    },
+    {
+      "word": "قديم",
+      "pronunciation": "/ʔæˈdiːm/",
+      "meaning": "旧的",
+      "chinese": "阿迪姆"
+    },
+    {
+      "word": "غالي",
+      "pronunciation": "/ˈɣɑːli/",
+      "meaning": "贵的",
+      "chinese": "嘎利"
+    },
+    {
+      "word": "رخيص",
+      "pronunciation": "/ɾeˈxiːsˤ/",
+      "meaning": "便宜的",
+      "chinese": "雷希斯"
+    },
+    {
+      "word": "مفتوح",
+      "pronunciation": "/mæfˈtuːħ/",
+      "meaning": "开着的",
+      "chinese": "马夫图赫"
+    },
+    {
+      "word": "مقفول",
+      "pronunciation": "/mæʔˈfuːl/",
+      "meaning": "关着的",
+      "chinese": "马富勒"
+    },
+    {
+      "word": "جاهز",
+      "pronunciation": "/ˈɡɑːhez/",
+      "meaning": "准备好了",
+      "chinese": "加赫兹"
+    },
+    {
+      "word": "تعبان",
+      "pronunciation": "/tæʕˈbæːn/",
+      "meaning": "累了（男性）",
+      "chinese": "塔阿班"
+    },
+    {
+      "word": "جعان",
+      "pronunciation": "/ɡeʕˈʕɑːn/",
+      "meaning": "饿了（男性）",
+      "chinese": "吉阿恩"
+    },
+    {
+      "word": "عطشان",
+      "pronunciation": "/ʕɑtˤˈʃɑːn/",
+      "meaning": "渴了（男性）",
+      "chinese": "阿特尚"
+    },
+    {
+      "word": "مبسوط",
+      "pronunciation": "/mæbˈsuːtˤ/",
+      "meaning": "高兴的（男性）",
+      "chinese": "马布苏特"
+    },
+    {
+      "word": "زعلان",
+      "pronunciation": "/zæʕˈlæːn/",
+      "meaning": "难过的（男性）",
+      "chinese": "扎阿兰"
+    },
+    {
+      "word": "صح",
+      "pronunciation": "/sˤɑħħ/",
+      "meaning": "对；正确",
+      "chinese": "萨赫"
+    },
+    {
+      "word": "غلط",
+      "pronunciation": "/ˈɣɑlɑtˤ/",
+      "meaning": "错；错误",
+      "chinese": "嘎拉特"
+    },
+    {
+      "word": "أكيد",
+      "pronunciation": "/ʔæˈkiːd/",
+      "meaning": "当然；确定",
+      "chinese": "阿基德"
+    },
+    {
+      "word": "يمكن",
+      "pronunciation": "/ˈjemken/",
+      "meaning": "也许",
+      "chinese": "延肯"
+    },
+    {
+      "word": "تقريبا",
+      "pronunciation": "/tæʔˈɾiːbæn/",
+      "meaning": "大约",
+      "chinese": "塔里班"
+    },
+    {
+      "word": "بجد",
+      "pronunciation": "/beˈɡædː/",
+      "meaning": "真的；认真地",
+      "chinese": "比加德"
+    },
+    {
+      "word": "برضه",
+      "pronunciation": "/ˈbɑɾdˤo/",
+      "meaning": "也；仍然",
+      "chinese": "巴尔多"
+    },
+    {
+      "word": "بس",
+      "pronunciation": "/bæsː/",
+      "meaning": "但是；只",
+      "chinese": "巴斯"
+    },
+    {
+      "word": "عشان",
+      "pronunciation": "/ʕæˈʃæːn/",
+      "meaning": "因为；为了",
+      "chinese": "阿尚"
+    },
+    {
+      "word": "مع",
+      "pronunciation": "/mæʕ/",
+      "meaning": "和；跟",
+      "chinese": "马阿"
+    },
+    {
+      "word": "من",
+      "pronunciation": "/men/",
+      "meaning": "从；来自",
+      "chinese": "明"
+    },
+    {
+      "word": "إلى",
+      "pronunciation": "/ˈʔelɑ/",
+      "meaning": "到；往",
+      "chinese": "伊拉"
+    },
+    {
+      "word": "يوم",
+      "pronunciation": "/joːm/",
+      "meaning": "一天",
+      "chinese": "尤姆"
+    },
+    {
+      "word": "أسبوع",
+      "pronunciation": "/ʔosˈbuːʕ/",
+      "meaning": "一周",
+      "chinese": "奥斯布阿"
+    },
+    {
+      "word": "شهر",
+      "pronunciation": "/ʃæhɾ/",
+      "meaning": "一个月",
+      "chinese": "沙赫尔"
+    },
+    {
+      "word": "سنة",
+      "pronunciation": "/ˈsænæ/",
+      "meaning": "一年",
+      "chinese": "萨纳"
+    },
+    {
+      "word": "الساعة",
+      "pronunciation": "/esˈsæːʕɑ/",
+      "meaning": "时间；钟点",
+      "chinese": "埃萨阿"
+    },
+    {
+      "word": "بدري",
+      "pronunciation": "/ˈbædɾi/",
+      "meaning": "早",
+      "chinese": "巴德里"
+    },
+    {
+      "word": "متأخر",
+      "pronunciation": "/metˈʔɑxxɑɾ/",
+      "meaning": "晚；迟到",
+      "chinese": "梅塔哈尔"
+    },
+    {
+      "word": "أمس",
+      "pronunciation": "/ʔæms/",
+      "meaning": "昨天（较正式）",
+      "chinese": "阿姆斯"
+    },
+    {
+      "word": "امبارح",
+      "pronunciation": "/emˈbæːɾeħ/",
+      "meaning": "昨天",
+      "chinese": "恩巴里赫"
+    },
+    {
+      "word": "بعد",
+      "pronunciation": "/bæʕd/",
+      "meaning": "在……之后",
+      "chinese": "巴阿德"
+    },
+    {
+      "word": "قبل",
+      "pronunciation": "/ʔæbl/",
+      "meaning": "在……之前",
+      "chinese": "阿布勒"
+    },
+    {
+      "word": "مياه",
+      "pronunciation": "/mæjːɑ/",
+      "meaning": "水",
+      "chinese": "马亚"
+    },
+    {
+      "word": "أكل",
+      "pronunciation": "/ʔækl/",
+      "meaning": "食物",
+      "chinese": "阿克勒"
+    },
+    {
+      "word": "عيش",
+      "pronunciation": "/ʕeːʃ/",
+      "meaning": "面包",
+      "chinese": "艾什"
+    },
+    {
+      "word": "شاي",
+      "pronunciation": "/ʃæːj/",
+      "meaning": "茶",
+      "chinese": "沙伊"
+    },
+    {
+      "word": "قهوة",
+      "pronunciation": "/ˈʔɑhwɑ/",
+      "meaning": "咖啡",
+      "chinese": "阿赫瓦"
+    },
+    {
+      "word": "لبن",
+      "pronunciation": "/ˈlæbæn/",
+      "meaning": "牛奶",
+      "chinese": "拉班"
+    },
+    {
+      "word": "سكر",
+      "pronunciation": "/ˈsokːɑɾ/",
+      "meaning": "糖",
+      "chinese": "索卡尔"
+    },
+    {
+      "word": "فلوس",
+      "pronunciation": "/feˈluːs/",
+      "meaning": "钱",
+      "chinese": "菲卢斯"
+    },
+    {
+      "word": "حساب",
+      "pronunciation": "/ħeˈsæːb/",
+      "meaning": "账单；结账",
+      "chinese": "希萨布"
+    },
+    {
+      "word": "سوق",
+      "pronunciation": "/suːʔ/",
+      "meaning": "市场",
+      "chinese": "苏"
+    },
+    {
+      "word": "شغل",
+      "pronunciation": "/ʃoɣl/",
+      "meaning": "工作",
+      "chinese": "舒格勒"
+    },
+    {
+      "word": "بيت",
+      "pronunciation": "/beːt/",
+      "meaning": "家；房子",
+      "chinese": "贝特"
+    },
+    {
+      "word": "صاحب",
+      "pronunciation": "/ˈsˤɑːħeb/",
+      "meaning": "朋友（男性）",
+      "chinese": "萨赫布"
     }
   ],
-  "quotes": [
-    "每天前进一点点。",
-    "慢一点，也是在前进。",
-    "今天的积累，是明天的底气。",
-    "保持好奇，持续成长。",
-    "把热爱，交给时间。",
-    "先开始，再慢慢变好。",
-    "每一步，都算数。",
-    "坚持，是温柔的力量。",
-    "把今天过成喜欢的样子。",
-    "小小进步，也值得庆祝。",
-    "不怕慢，只管向前。",
-    "学一点，做一点。",
-    "耐心一点，好事会发生。",
-    "让行动，带来改变。"
+  "ai_tips": [
+    "提示词应明确目标、背景与输出格式。",
+    "检索增强生成可让模型引用外部资料。",
+    "低温度通常让模型输出更加稳定。",
+    "向量检索依靠语义相似度寻找相关内容。",
+    "上下文窗口决定模型单次可处理的信息量。",
+    "结构化输出可降低程序解析模型结果的难度。",
+    "评估模型时，应使用未参与训练的测试集。",
+    "幻觉是指模型生成看似可信但错误的内容。",
+    "微调适合塑造稳定行为，不等于实时更新知识。",
+    "工具调用让模型能够请求外部程序执行操作。",
+    "模型生成时，每个词元都受前文影响。",
+    "缓存可复用重复提示词，降低延迟与成本。",
+    "令牌消耗取决于输入和输出的总长度。",
+    "模型输出应经过验证，不能直接视为事实。",
+    "明确约束条件能减少模型输出格式错误。",
+    "给出示例可帮助模型理解期望的回答形式。",
+    "长上下文不保证模型准确利用每条信息。",
+    "检索结果的质量会直接影响生成质量。",
+    "切分文档时，应兼顾语义完整与检索粒度。",
+    "重排序可对初次检索的候选结果精排。",
+    "向量相似不代表两段内容的事实一致。",
+    "为回答附上来源，便于人工核查事实。",
+    "工具返回值也可能包含错误或恶意指令。",
+    "敏感操作应在执行前进行权限校验。",
+    "模型可以提出工具调用，但执行由程序控制。",
+    "对外部输入设置长度上限可控制资源消耗。",
+    "重复请求遇到限流时应增加退避间隔。",
+    "重试具有副作用的操作需要考虑幂等性。",
+    "记录请求耗时有助于定位性能瓶颈。",
+    "输入和输出词元都会影响调用成本。",
+    "缓存命中率提升有助于降低重复计算。",
+    "缓存数据应标明更新时间和过期状态。",
+    "评估数据泄漏会高估模型的真实能力。",
+    "训练集与测试集应避免重复样本。",
+    "单一指标通常无法反映模型全部表现。",
+    "评估集应覆盖常见任务与边界情况。",
+    "上线后应持续监控模型质量和成本。",
+    "模型升级后应重新运行关键回归测试。",
+    "提示词变更也可能影响下游系统行为。",
+    "精确率高不代表召回率一定高。",
+    "类别分布不均时，准确率可能具有误导性。",
+    "离线评估结果不一定等于真实用户体验。",
+    "人工复核适合处理高风险或模糊案例。",
+    "采样温度为零也不保证所有服务完全确定。",
+    "随机种子只能在特定条件下改善复现性。",
+    "模型参数规模不是能力的唯一决定因素。",
+    "多模态模型也可能误读图片中的细节。",
+    "OCR质量会影响文档问答的准确性。",
+    "模型能输出正确格式，不代表内容正确。",
+    "JSON格式校验不能替代业务逻辑校验。",
+    "对数字计算结果进行独立校验更可靠。",
+    "模型生成的代码应经过测试和安全审查。",
+    "执行模型生成的命令前应限制权限。",
+    "不要把密钥写入提示词或日志。",
+    "日志中的个人信息应按需脱敏。",
+    "最小权限原则可降低工具调用的风险。",
+    "提示注入可隐藏在网页和文档内容中。",
+    "外部资料应当视为数据，而不是系统指令。",
+    "检索范围越大，越需要过滤和排序。",
+    "混合检索可结合关键词和语义匹配。",
+    "查询改写可能改善检索，也可能偏离原意。",
+    "元数据过滤能缩小检索范围。",
+    "文档更新后，索引也需要及时更新。",
+    "向量模型变化后通常需要重新生成索引。",
+    "分段重叠可减少跨段信息丢失。",
+    "不要仅凭相似度分数判定答案可信。",
+    "高相似度内容也可能已经过期。",
+    "引用来源应与具体结论直接对应。",
+    "允许模型回答不知道，可减少无依据猜测。",
+    "多轮对话需要控制历史内容的长度。",
+    "摘要可以压缩历史，但可能遗漏关键信息。",
+    "长期记忆需要明确管理保存与删除。",
+    "流式输出能提前显示结果，但不一定缩短总耗时。",
+    "并发提升吞吐量，也可能触发服务限流。",
+    "批处理提高利用率，但可能增加等待时间。",
+    "分位数延迟比平均延迟更能反映慢请求。",
+    "超时设置应考虑正常请求的耗时分布。",
+    "失败重试应区分临时错误与永久错误。",
+    "指数退避加入抖动可避免集中重试。",
+    "模型服务应对异常值和空响应做处理。",
+    "费用估算应同时考虑输入与输出价格。",
+    "配额阈值告警应留出处理时间。",
+    "服务降级策略应明确告知用户。",
+    "可观测性包括日志、指标与调用链。",
+    "审计记录不应暴露访问令牌。",
+    "模型版本和提示词版本都应可追踪。",
+    "相同输入在不同模型版本下可能产生不同结果。",
+    "小模型适合成本敏感且任务明确的场景。",
+    "复杂任务可先拆解，再逐步验证结果。",
+    "检索不是训练，通常不会改变模型参数。",
+    "微调需要质量可靠且符合授权的数据。",
+    "蒸馏能缩小模型，但可能损失部分能力。",
+    "量化可降低资源消耗，也可能影响精度。",
+    "基准测试不能替代实际业务场景验证。",
+    "训练数据中的偏差可能传递到模型输出。",
+    "合成数据也需要经过质量与多样性检查。",
+    "评测集应定期更新以覆盖新场景。",
+    "内容审核应结合具体风险和业务场景。",
+    "人类反馈能帮助发现自动指标遗漏的问题。",
+    "使用外部模型前应确认数据处理和保留方式。"
   ]
 }

@@ -17,10 +17,14 @@ class DashboardTests(unittest.TestCase):
     def test_daily_words_have_complete_entries(self):
         words = json.loads((Path(__file__).resolve().parents[1] / 'words.json').read_text())
         for group in ('ai', 'egyptian'):
-            self.assertGreaterEqual(len(words[group]), 14)
+            self.assertGreaterEqual(len(words[group]), 100)
             for item in words[group]:
                 self.assertTrue(all(item.get(key) for key in ('word', 'pronunciation', 'meaning')))
         self.assertTrue(all(item.get('chinese') for item in words['egyptian']))
+        self.assertGreaterEqual(len(words['ai_tips']), 100)
+        self.assertEqual(len(set(words['ai_tips'])), len(words['ai_tips']))
+        for group in ('ai', 'egyptian'):
+            self.assertEqual(len({item['word'].casefold() for item in words[group]}), len(words[group]))
 
     def test_last_live_quota_survives_unavailable_and_broken_input(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(dashboard, 'ROOT', directory):

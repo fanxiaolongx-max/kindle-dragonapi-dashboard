@@ -304,9 +304,9 @@ def render_dashboard(content, width, height):
         text(1220, footer_y + 74, egyptian['pronunciation'], 19)
         chinese_lines(830, footer_y + 96, ai['meaning'])
         chinese_lines(1220, footer_y + 96, egyptian['meaning'] + '  ·  谐音：' + egyptian['chinese'])
-        quotes = words.get('quotes', [])
-        if quotes:
-            local_text(830, footer_y + 160, '每日一句：' + quotes[day % len(quotes)], 20, chinese_font)
+        tips = words.get('ai_tips', [])
+        if tips:
+            local_text(830, footer_y + 155, 'AI知识：' + tips[day % len(tips)], 26, chinese_font)
     except (OSError, ValueError, KeyError, TypeError, IndexError, ZeroDivisionError):
         pass
     # Give the process list the full width below the DragonAPI summary.
