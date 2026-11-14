@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """DragonAPI read-only overview for Kindle."""
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -8,12 +9,32 @@ import ssl
 import subprocess
 import sys
 import time
+import unicodedata
 import urllib.parse
 import urllib.request
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = '/mnt/us/extensions/dragonapi-dashboard'
 FBINK = '/mnt/us/usbnet/bin/fbink'
+
+def shape_arabic(word):
+    """Shape and reverse Arabic letters for Pillow builds without libraqm."""
+    forms = {}
+    for code in range(0xFB50, 0xFF00):
+        char = chr(code)
+        parts = unicodedata.decomposition(char).split()
+        if len(parts) == 2 and parts[0] in ('<isolated>', '<final>', '<initial>', '<medial>'):
+            forms.setdefault(chr(int(parts[1], 16)), {})[parts[0][1:-1]] = char
+    shaped = []
+    for i, char in enumerate(word):
+        current = forms.get(char, {})
+        previous = forms.get(word[i - 1], {}) if i else {}
+        following = forms.get(word[i + 1], {}) if i + 1 < len(word) else {}
+        joins_previous = 'initial' in previous and 'final' in current
+        joins_next = 'initial' in current and 'final' in following
+        form = 'medial' if joins_previous and joins_next else 'final' if joins_previous else 'initial' if joins_next else 'isolated'
+        shaped.append(current.get(form, char))
+    return ''.join(reversed(shaped))
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
@@ -45,18 +66,42 @@ def number(value):
 def agent_table():
     rows = []
     timestamp = None
+    cache_path = os.path.join(ROOT, 'agent-quota-cache.json')
+    try:
+        with open(cache_path, encoding='utf-8') as f:
+            cache = json.load(f)
+        if not isinstance(cache, dict):
+            cache = {}
+    except (OSError, ValueError):
+        cache = {}
     try:
         with open(os.path.join(ROOT, 'agent-quotas.json'), encoding='utf-8') as f:
             data = json.load(f)
+        if not isinstance(data, dict):
+            data = {}
+    except (OSError, ValueError):
+        data = {}
+    try:
         timestamp = data.get('timestamp')
         for key, title in [('codex', 'Codex'), ('claudecode', 'Claude Code'), ('antigravity', 'AG')]:
             item = data.get('quotas', {}).get(key, {})
             groups = item.get('groups') or []
-            if item.get('status') not in ('live', 'cached') or not groups:
-                rows.append((title, item.get('status', 'unavailable'), '--'))
+            state = item.get('status', 'unavailable')
+            if state == 'live' and groups and isinstance(timestamp, (int, float)):
+                cache[key] = {'item': item, 'timestamp': timestamp}
+            elif (state not in ('live', 'cached') or not groups) and key in cache:
+                cached = cache[key]
+                cached_time = cached.get('timestamp')
+                if isinstance(cached_time, (int, float)) and 0 <= time.time() * 1000 - cached_time <= 15 * 60000:
+                    item = cached.get('item', {})
+                    groups = item.get('groups') or []
+                    state = 'cached'
+                    item = dict(item, updatedAt=cached_time)
+            if state not in ('live', 'cached') or not groups:
+                rows.append((title, '--', '--'))
                 continue
             for group in groups:
-                label = title if key != 'antigravity' else 'AG ' + str(group.get('label') or group.get('id') or 'model')
+                label = title if key != 'antigravity' else title + ' ' + str(group.get('label') or group.get('id') or 'model')
                 windows = {w.get('id'): w for w in group.get('windows', [])}
                 def cell(name):
                     w = windows.get(name, {})
@@ -75,6 +120,15 @@ def agent_table():
             extra = item.get('extraUsage') or {}
             if extra.get('enabled') and isinstance(extra.get('used'), (int, float)) and isinstance(extra.get('limit'), (int, float)):
                 rows.append(('  EXTRA ' + extra.get('currency', 'USD'), '%s / %s' % (format(extra['used'], ',.2f'), format(extra['limit'], ',.2f')), ''))
+            elif key == 'claudecode':
+                rows.append(('  EXTRA', '--', ''))
+        try:
+            tmp = cache_path + '.tmp'
+            with open(tmp, 'w', encoding='utf-8') as f:
+                json.dump(cache, f)
+            os.replace(tmp, cache_path)
+        except OSError:
+            pass
     except (OSError, ValueError, KeyError, TypeError):
         rows.append(('Waiting for Mac sync', '--', '--'))
     return rows, timestamp
@@ -82,21 +136,51 @@ def agent_table():
 def dashboard(config):
     base, token = config['base_url'].rstrip('/'), config['access_token']
     failures = []
+    cache_path = os.path.join(ROOT, 'dragonapi-cache.json')
+    try:
+        with open(cache_path, encoding='utf-8') as f:
+            cache = json.load(f)
+        if not isinstance(cache, dict):
+            cache = {}
+    except (OSError, ValueError):
+        cache = {}
+    identity = hashlib.sha256((base + '\0' + token + '\0' + config.get('scope', 'admin')).encode()).hexdigest()
+    if cache.get('_identity') != identity:
+        cache = {'_identity': identity}
     def get(label, path, default):
         try:
-            return fetch(base, token, path) or default
+            data = fetch(base, token, path)
+            cache[label] = {'timestamp': time.time(), 'data': data}
+            return data if data is not None else default
         except (OSError, ValueError, KeyError):
-            failures.append(label)
+            saved = cache.get(label, {})
+            if isinstance(saved, dict) and 'data' in saved and isinstance(saved.get('timestamp'), (int, float)):
+                failures.append(label + ' offline')
+                return saved['data'] if saved['data'] is not None else default
+            failures.append(label + ' --')
             return default
     now = int(time.time())
     query = urllib.parse.urlencode({'start_timestamp': now - 86400, 'end_timestamp': now})
     admin = config.get('scope', 'admin') == 'admin'
     user = get('account', '/api/user/self', {})
+    display_config = get('display', '/api/status', {})
     usage = get('usage', ('/api/data/?' if admin else '/api/data/self?') + query, [])
     host = get('host', '/api/system/host-metrics', {}) if admin else {}
     temperature = get('temperature', '/api/system/temperature', {}) if admin else {}
     machines = get('VM', '/api/system/virtual-machines', []) if admin else []
+    try:
+        with open(cache_path + '.tmp', 'w', encoding='utf-8') as f:
+            json.dump(cache, f)
+        os.replace(cache_path + '.tmp', cache_path)
+    except OSError:
+        pass
     temp = temperature.get('current', {}).get('cpu')
+    def quota(value):
+        unit = display_config.get('quota_per_unit')
+        display = display_config.get('quota_display_type')
+        if display == 'USD' and isinstance(unit, (int, float)) and unit > 0 and isinstance(value, (int, float)):
+            return '$' + format(value / unit, ',.2f')
+        return number(value)
     width = 64
     border = '+' + '-' * (width - 2) + '+'
     def row(text):
@@ -105,7 +189,7 @@ def dashboard(config):
         return row('%-18.18s | %-18.18s | %-18.18s' % (name, five, week))
     agent_rows, stamp = agent_table()
     age = max(0, int((time.time() * 1000 - stamp) / 60000)) if isinstance(stamp, (int, float)) else None
-    status = ('Agent sync %dm ago' % age) if age is not None else 'Agent sync unavailable'
+    status = ('Agent sync %dm ago' % age) if age is not None else 'Agent sync --'
     if age is not None and age > 10:
         status += ' / STALE'
     lines = [border, row('AGENT QUOTAS   |   Remaining %   |   ' + status),
@@ -114,7 +198,7 @@ def dashboard(config):
              row('-' * 18 + '-+-' + '-' * 18 + '-+-' + '-' * 18)]
     lines.extend(table_row(*entry) for entry in agent_rows)
     lines += [border, row('DRAGONAPI  |  Account and last 24 hours'),
-              row('Balance: %-17s Used: %s' % (number(user.get('quota')), number(user.get('used_quota')))),
+              row('Balance: %-17s Used: %s' % (quota(user.get('quota')), quota(user.get('used_quota')))),
               row('Requests: %-16s 24h: %s requests / %s tokens' % (number(user.get('request_count')), number(sum(x.get('count', 0) or 0 for x in usage)), number(sum(x.get('token_used', 0) or 0 for x in usage))))]
     if admin:
         def percent(part):
@@ -123,7 +207,7 @@ def dashboard(config):
         lines.append(row('Host  CPU: %s  RAM: %s  Disk: %s  Temp: %s C' % (percent('cpu'), percent('memory'), percent('storage'), str(temp) if temp is not None else '--')))
         vm_text = ', '.join(str(vm.get('name', 'VM')) + ':' + str(vm.get('state', '--')) for vm in machines[:6]) or 'No data'
         lines.append(row('VM  ' + vm_text))
-    lines += [row(('Unavailable: ' + ', '.join(failures)) if failures else 'Connected / Auto refresh'), border]
+    lines += [row((', '.join(failures)) if failures else 'DragonAPI updated ' + datetime.datetime.now().strftime('%H:%M:%S')), border]
     return '\n'.join(lines)
 
 def render_dashboard(content, width, height):
@@ -153,11 +237,11 @@ def render_dashboard(content, width, height):
     if len(entries) > 6:
         entries = entries[:5] + [['More groups', '--', '--', '']]
     age = max(0, int((time.time() * 1000 - stamp) / 60000)) if isinstance(stamp, (int, float)) else None
-    sync = ('SYNC %d MIN AGO' % age) if age is not None else 'SYNC UNAVAILABLE'
+    sync = ('SYNC %d MIN AGO' % age) if age is not None else 'SYNC --'
     if age is not None and age > 10:
         sync += '  /  STALE'
     text(60, 34, 'AGENT QUOTAS', 46, True)
-    text(1160, 49, sync, 25, True)
+    text(1160, 49, sync.replace('SYNC ', 'AGENT '), 25, True)
     text(60, 102, 'REMAINING', 23, True)
     text(640, 102, '5 HOURS', 25, True)
     text(1115, 102, 'WEEKLY', 25, True)
@@ -167,7 +251,11 @@ def render_dashboard(content, width, height):
         match = re.match(r'^\s*([\d.]+%)\s+(.*)$', value)
         if match:
             text(x, y + 2, match.group(1), 58, True)
-            text(x, y + 76, 'RESET  ' + match.group(2), 21)
+            if float(match.group(1).rstrip('%')) <= 20:
+                draw.rectangle((pos(x + 220), pos(y + 16), pos(x + 288), pos(y + 48)), fill=0)
+                text(x + 230, y + 17, 'LOW', 19, True, fill=255)
+            reset = match.group(2)
+            text(x, y + 76, 'RESET ' + reset, 21)
         else:
             text(x, y + 14, value, 38, True)
     for i, (label, five, weekly, detail) in enumerate(entries):
@@ -184,6 +272,43 @@ def render_dashboard(content, width, height):
     footer = [item.strip('| ').strip() for item in footer[start:] if item.startswith('|')]
     for i, item in enumerate(footer):
         text(60, footer_y + i * 35, item, 23, i == 0)
+    try:
+        with open(os.path.join(ROOT, 'words.json'), encoding='utf-8') as f:
+            words = json.load(f)
+        day = datetime.date.today().toordinal()
+        ai = words['ai'][day % len(words['ai'])]
+        egyptian = words['egyptian'][day % len(words['egyptian'])]
+        chinese_font = '/mnt/us/koreader/fonts/noto/NotoSansCJKsc-Regular.otf'
+        arabic_font = '/mnt/us/koreader/fonts/noto/NotoNaskhArabic-Bold.ttf'
+        def local_text(x, y, value, size, font_path):
+            draw.text((pos(x), pos(y)), str(value), font=ImageFont.truetype(font_path, max(10, pos(size))), fill=0)
+        def chinese_lines(x, y, value):
+            face = ImageFont.truetype(chinese_font, max(10, pos(19)))
+            lines = ['']
+            for char in value:
+                if draw.textlength(lines[-1] + char, font=face) > pos(335):
+                    lines.append('')
+                lines[-1] += char
+            for index, item in enumerate(lines[:2]):
+                draw.text((pos(x), pos(y + index * 25)), item, font=face, fill=0)
+        line(800, footer_y, 800, footer_y + 195, 1)
+        line(1195, footer_y + 5, 1195, footer_y + 145, 1)
+        text(830, footer_y, 'AI ENGLISH', 19, True)
+        text(1220, footer_y, 'EGYPTIAN ARABIC', 19, True)
+        ai_size = 42
+        while ai_size > 26 and draw.textlength(ai['word'], font=font(ai_size, True)) > pos(335):
+            ai_size -= 1
+        text(830, footer_y + 22, ai['word'], ai_size, True)
+        local_text(1220, footer_y + 9, shape_arabic(egyptian['word']), 46, arabic_font)
+        text(830, footer_y + 70, ai['pronunciation'], 19)
+        text(1220, footer_y + 74, egyptian['pronunciation'], 19)
+        chinese_lines(830, footer_y + 96, ai['meaning'])
+        chinese_lines(1220, footer_y + 96, egyptian['meaning'] + '  ·  谐音：' + egyptian['chinese'])
+        quotes = words.get('quotes', [])
+        if quotes:
+            local_text(830, footer_y + 160, '每日一句：' + quotes[day % len(quotes)], 20, chinese_font)
+    except (OSError, ValueError, KeyError, TypeError, IndexError, ZeroDivisionError):
+        pass
     # Give the process list the full width below the DragonAPI summary.
     pm_y = footer_y + len(footer) * 35 + 12
     line(60, pm_y, 1588, pm_y, 2)
@@ -196,16 +321,44 @@ def render_dashboard(content, width, height):
         host = {}
     processes = host.get('processes', [])
     updated = host.get('timestamp')
+    restart_path = os.path.join(ROOT, 'pm2-restart-cache.json')
+    try:
+        with open(restart_path, encoding='utf-8') as f:
+            restart_cache = json.load(f)
+    except (OSError, ValueError):
+        restart_cache = {}
+    if isinstance(updated, (int, float)) and updated != restart_cache.get('timestamp'):
+        old_counts = restart_cache.get('counts', {})
+        increases = []
+        counts = {}
+        for proc in processes:
+            key = str(proc.get('name', '')) + ':' + str(proc.get('id', ''))
+            count = proc.get('restarts')
+            if isinstance(count, (int, float)):
+                counts[key] = count
+                if key in old_counts and count > old_counts[key]:
+                    increases.append(key)
+        restart_cache = {'timestamp': updated, 'counts': counts, 'increases': increases}
+        try:
+            with open(restart_path + '.tmp', 'w', encoding='utf-8') as f:
+                json.dump(restart_cache, f)
+            os.replace(restart_path + '.tmp', restart_path)
+        except OSError:
+            pass
+    increases = set(restart_cache.get('increases', []))
+    processes = sorted(processes, key=lambda p: (p.get('status') == 'online', str(p.get('name', '')) + ':' + str(p.get('id', '')) not in increases))
     stale = not isinstance(updated, (int, float)) or time.time() - updated / 1000 > 600
     online = sum(1 for proc in processes if proc.get('status') == 'online')
     if host.get('status') == 'unavailable':
-        status = 'UNAVAILABLE: ' + str(host.get('reason', 'unknown')).replace('_', ' ')
+        status = '--'
     elif not host:
         status = 'NO DATA'
     elif not processes:
         status = 'NO PROCESSES'
     else:
         status = '%d/%d ONLINE' % (online, len(processes))
+    if isinstance(updated, (int, float)):
+        status += ' / %dm ago' % max(0, int((time.time() * 1000 - updated) / 60000))
     if stale and host:
         status += ' / STALE'
     text(60, pm_y + 8, 'MAC PM2   ' + status, 25, True)
@@ -224,7 +377,9 @@ def render_dashboard(content, width, height):
         memory = proc.get('memoryBytes')
         cpu_text = '%.1f%%' % cpu if isinstance(cpu, (int, float)) else '--'
         mem_text = '%.0fM' % (memory / 1048576) if isinstance(memory, (int, float)) else '--'
-        name = str(proc.get('name', '?'))[:30]
+        name = str(proc.get('name', '?'))[:24]
+        if str(proc.get('name', '')) + ':' + str(proc.get('id', '')) in increases:
+            name += ' !'
         proc_status = str(proc.get('status', '?'))
         text(x, y, name, 22, True)
         text(x + 360, y, '%s  %s  %s  R:%s' % (proc_status, cpu_text, mem_text, proc.get('restarts', '--')), 20, proc_status != 'online')

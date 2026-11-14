@@ -4,3 +4,6 @@ config.json
 __pycache__/
 pm2-status*.json
 debian-pm2-status.json
+agent-quota-cache.json*
+pm2-restart-cache.json*
+dragonapi-cache.json*

@@ -1,0 +1,176 @@
+{
+  "ai": [
+    {
+      "word": "Inference",
+      "pronunciation": "/ˈɪnfərəns/",
+      "meaning": "推理：模型根据输入生成结果"
+    },
+    {
+      "word": "Token",
+      "pronunciation": "/ˈtoʊkən/",
+      "meaning": "词元：模型处理文本的基本单位"
+    },
+    {
+      "word": "Embedding",
+      "pronunciation": "/ɪmˈbedɪŋ/",
+      "meaning": "嵌入：把内容转换成向量表示"
+    },
+    {
+      "word": "Prompt",
+      "pronunciation": "/prɑːmpt/",
+      "meaning": "提示词：给模型的指令或输入"
+    },
+    {
+      "word": "Context",
+      "pronunciation": "/ˈkɑːntekst/",
+      "meaning": "上下文：模型当前可参考的信息"
+    },
+    {
+      "word": "Fine-tuning",
+      "pronunciation": "/ˌfaɪn ˈtuːnɪŋ/",
+      "meaning": "微调：用特定数据继续训练模型"
+    },
+    {
+      "word": "Hallucination",
+      "pronunciation": "/həˌluːsɪˈneɪʃn/",
+      "meaning": "幻觉：模型生成看似可信的错误内容"
+    },
+    {
+      "word": "Dataset",
+      "pronunciation": "/ˈdeɪtəset/",
+      "meaning": "数据集：用于训练或评估的数据"
+    },
+    {
+      "word": "Latency",
+      "pronunciation": "/ˈleɪtənsi/",
+      "meaning": "延迟：请求发出到收到结果的时间"
+    },
+    {
+      "word": "Multimodal",
+      "pronunciation": "/ˌmʌltiˈmoʊdl/",
+      "meaning": "多模态：处理文字、图像等多种信息"
+    },
+    {
+      "word": "Model",
+      "pronunciation": "/ˈmɑːdl/",
+      "meaning": "模型：从数据中学习规律的系统"
+    },
+    {
+      "word": "Benchmark",
+      "pronunciation": "/ˈbentʃmɑːrk/",
+      "meaning": "基准测试：用统一任务比较模型"
+    },
+    {
+      "word": "Retrieval",
+      "pronunciation": "/rɪˈtriːvl/",
+      "meaning": "检索：从外部资料中找到相关内容"
+    },
+    {
+      "word": "Agent",
+      "pronunciation": "/ˈeɪdʒənt/",
+      "meaning": "智能体：能使用工具完成任务的系统"
+    }
+  ],
+  "egyptian": [
+    {
+      "word": "إزيك",
+      "pronunciation": "/ʔizˈzajjæk/",
+      "meaning": "你好吗？（对男性）",
+      "chinese": "埃宰亚克"
+    },
+    {
+      "word": "شكرا",
+      "pronunciation": "/ˈʃokɾɑn/",
+      "meaning": "谢谢",
+      "chinese": "舒克兰"
+    },
+    {
+      "word": "تمام",
+      "pronunciation": "/tæˈmæːm/",
+      "meaning": "好的；没问题",
+      "chinese": "塔玛姆"
+    },
+    {
+      "word": "معلش",
+      "pronunciation": "/mæʕˈleːʃ/",
+      "meaning": "没关系；抱歉",
+      "chinese": "马莱什"
+    },
+    {
+      "word": "يلا",
+      "pronunciation": "/ˈjælːɑ/",
+      "meaning": "走吧；快点",
+      "chinese": "亚拉"
+    },
+    {
+      "word": "بكام",
+      "pronunciation": "/biˈkæːm/",
+      "meaning": "多少钱？",
+      "chinese": "比卡姆"
+    },
+    {
+      "word": "فين",
+      "pronunciation": "/feːn/",
+      "meaning": "在哪里？",
+      "chinese": "费恩"
+    },
+    {
+      "word": "عايز",
+      "pronunciation": "/ˈʕɑːjez/",
+      "meaning": "我想要（男性说）",
+      "chinese": "阿耶兹"
+    },
+    {
+      "word": "حاضر",
+      "pronunciation": "/ˈħɑːdˤeɾ/",
+      "meaning": "好的；马上办",
+      "chinese": "哈德尔"
+    },
+    {
+      "word": "ماشي",
+      "pronunciation": "/ˈmæːʃi/",
+      "meaning": "好；行",
+      "chinese": "马希"
+    },
+    {
+      "word": "دلوقتي",
+      "pronunciation": "/dilˈwaʔti/",
+      "meaning": "现在",
+      "chinese": "迪勒瓦提"
+    },
+    {
+      "word": "بكرة",
+      "pronunciation": "/ˈbokɾɑ/",
+      "meaning": "明天",
+      "chinese": "博克拉"
+    },
+    {
+      "word": "النهاردة",
+      "pronunciation": "/inˈnɑhɑɾdɑ/",
+      "meaning": "今天",
+      "chinese": "恩纳哈达"
+    },
+    {
+      "word": "حلو",
+      "pronunciation": "/ˈħelw/",
+      "meaning": "好；漂亮",
+      "chinese": "希勒乌"
+    }
+  ],
+  "quotes": [
+    "每天前进一点点。",
+    "慢一点，也是在前进。",
+    "今天的积累，是明天的底气。",
+    "保持好奇，持续成长。",
+    "把热爱，交给时间。",
+    "先开始，再慢慢变好。",
+    "每一步，都算数。",
+    "坚持，是温柔的力量。",
+    "把今天过成喜欢的样子。",
+    "小小进步，也值得庆祝。",
+    "不怕慢，只管向前。",
+    "学一点，做一点。",
+    "耐心一点，好事会发生。",
+    "让行动，带来改变。"
+  ]
+}

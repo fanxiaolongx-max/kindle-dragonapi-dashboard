@@ -41,3 +41,7 @@ python3 scripts/collect_pm2.py --host mac --kindle root@kindle
 ```
 
 `--pm2` 可指定 PM2 路径。文件的 `timestamp` 使用毫秒级 Unix 时间戳，进程字段包括 `name`、`status`、`cpuPercent`、`memoryBytes` 和 `restarts`。采集脚本也支持 `--host debian`，将结果写到单独的 `debian-pm2-status.json`；当前看板不显示 Debian 数据。超过 10 分钟未更新会标记 STALE；进程超出屏幕容量时自动轮换页面。
+
+## 每日单词
+
+`words.json` 保存 AI 英语词汇和埃及阿拉伯语词汇；看板按 Kindle 本地日期每天切换，无需联网。内置各 14 条，播放完后循环；可按相同字段格式添加词条。阿拉伯语使用简化拼写与近似 IPA、中文谐音，实际发音可能因说话者而异。显示依赖 KOReader 的 Noto 中文和阿拉伯语字体。
